@@ -44,7 +44,7 @@ const Sidebar = () => {
       try {
         const res = await getAllDocs()
         setUploadedFiles(res.data)
-        console.log(await verifyCitation({ query: "shift info" }))
+        console.log(await verifyCitation({ query: "give me information about the gift program that gives me idea about the gift policies" }))
       } catch (e) {
         console.error(e)
       }
@@ -59,15 +59,15 @@ const Sidebar = () => {
         <MessageCircle className="text-3xl mr-3" />
         <h1 className="text-2xl font-bold">DocuChat</h1>
       </div>
-      <div className="flex-1">
+      <div className="flex flex-col grow">
         <h2 className="text-lg font-semibold mb-4 flex items-center">
           <FileText className="mr-2" />
           Upload Document
         </h2>
         <FileUpload chunking_method={chunkingMethod} chunking_mode={chunkingMode} onUploadComplete={setUploadedFiles} />
 
-        <div className="w-full max-w-md mt-5 rounded-xl border border-gray-200 bg-white p-3 shadow-sm">
-          <h3 className="mb-4 text-lg font-semibold text-gray-900">
+        <div className="w-full max-w-md mt-5 rounded-xl border border-gray-200 bg-white p-3 shadow-sm text-gray-900">
+          <h3 className="mb-4 text-lg font-semibold">
             Chunking Configuration
           </h3>
 
@@ -82,7 +82,7 @@ const Sidebar = () => {
                 onChange={(e) =>
                   setChunkingMethod(e.target.value as ChunkingMethod)
                 }
-                className="w-full border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/30"
+                className="w-full border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 rounded-md"
               >
                 <option value={ChunkingMethod.SLIDING_WINDOW}>
                   Sliding Window
@@ -104,7 +104,7 @@ const Sidebar = () => {
                   onChange={(e) =>
                     setChunkingMode(e.target.value as SemanticMode)
                   }
-                  className="w-full border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/30"
+                  className="w-full border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 rounded-md"
                 >
                   <option value="paragraph">Paragraph</option>
                   <option value="section">Section</option>
@@ -113,7 +113,7 @@ const Sidebar = () => {
               </div>
             )}
 
-            <div className="bg-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700">
+            <div className="bg-gray-100 rounded-xl px-4 py-3 text-sm text-gray-700">
               <div className="flex items-center justify-between">
                 <span className="font-medium text-gray-600">
                   Method
@@ -138,11 +138,14 @@ const Sidebar = () => {
             </div>
           </div>
         </div>
-        <div className='mt-10'>
-          <UploadedFilesSidebar files={uploadedFiles} />
+        <div className='pr-2 mt-10'>
+          <h2 className="text-gray-100 font-semibold mb-2">Uploaded Files</h2>
+          <div className='max-h-55 grow overflow-y-auto'>
+            <UploadedFilesSidebar files={uploadedFiles} />
+          </div>
         </div>
       </div>
-      <div className="text-xs text-gray-400">
+      <div className="text-xs text-gray-400 mt-auto">
         <p>&copy; 2024 DocuChat. All rights reserved.</p>
       </div>
     </div>

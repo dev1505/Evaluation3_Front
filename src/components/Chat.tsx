@@ -11,17 +11,18 @@ export type Citation = {
   page_end: number
   section_path: string
   chunk_index: number
+  citation: string;
 }
 
-export type Message = {
+export type MessageType = {
   text: string
   sender: "user" | "bot"
-  citations?: Citation[]
-  response_at: ""
+  citations: Citation[]
+  response_at: string
 }
 
 const Chat = () => {
-  const [messages, setMessages] = useState<{ text: string; sender: 'user' | 'bot'; citations: [], response_at: "" }[]>([]);
+  const [messages, setMessages] = useState<MessageType[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -67,8 +68,8 @@ const Chat = () => {
   }
 
   return (
-    <div className="w-3/4 flex flex-col bg-gray-100 overflow-y-scroll">
-      <div className="flex-1 p-6">
+    <div className="w-3/4 flex flex-col bg-gray-100 relative">
+      <div className="flex-1 p-6 overflow-y-auto pb-30"> {/* Added pb-20 to ensure space for fixed input */}
         <div className="flex flex-col space-y-4">
           {messages.map((msg, index) => (
             <Message key={index} text={msg.text} sender={msg.sender} citations={msg.citations} response_at={msg.response_at} />
@@ -77,7 +78,7 @@ const Chat = () => {
         </div>
         <div ref={messagesEndRef} />
       </div>
-      <div className="p-4 bg-white border-t border-gray-200 flex items-center">
+      <div className="p-4 bg-white border-t border-gray-200 flex items-center absolute bottom-0 left-0 right-0">
         <input
           type="text"
           value={input}

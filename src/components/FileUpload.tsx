@@ -29,10 +29,7 @@ const FileUpload = ({ onUploadComplete, chunking_method, chunking_mode }: { onUp
       const docs = await getAllDocs()
       setUploadSuccess(true);
       setFile(null);
-      onUploadComplete(prev => [
-        ...prev,
-        ...docs.data
-      ])
+      onUploadComplete(docs.data)
     } catch (error) {
       console.error('Error uploading file:', error);
       setError('An error occurred while uploading the file.');
@@ -42,8 +39,8 @@ const FileUpload = ({ onUploadComplete, chunking_method, chunking_mode }: { onUp
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg text-black">
-      <div className="relative border-2 border-dashed border-gray-500 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
+    <div className="p-4 rounded-lg text-white bg-black">
+      <div className="relative border-2 border-dashed border-blue-500 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
         <input
           type="file"
           onChange={handleFileChange}
@@ -52,14 +49,14 @@ const FileUpload = ({ onUploadComplete, chunking_method, chunking_mode }: { onUp
         />
         <div className="flex flex-col items-center">
           {file ? (
-            <FiFile className="text-4xl mb-2" />
+            <FiFile className="text-4xl mb-2 text-blue-300" />
           ) : (
-            <FiUploadCloud className="text-4xl mb-2" />
+            <FiUploadCloud className="text-4xl mb-2 text-blue-300" />
           )}
           <p className="text-sm">
             {file ? file.name : 'Click to upload a document'}
           </p>
-          <p className="text-xs">PDF, DOC, DOCX</p>
+          <p className="text-xs text-blue-200">PDF, DOC, DOCX</p>
         </div>
       </div>
       {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
@@ -72,7 +69,7 @@ const FileUpload = ({ onUploadComplete, chunking_method, chunking_mode }: { onUp
       <button
         onClick={handleUpload}
         disabled={!file || uploading}
-        className="mt-4 w-full bg-indigo-600 text-white p-3 rounded-lg shadow-md hover:bg-indigo-700 disabled:bg-gray-500 disabled:cursor-not-allowed transition-all flex items-center justify-center"
+        className="mt-4 w-full bg-blue-600 text-white p-3 rounded-lg shadow-md hover:bg-blue-500 disabled:bg-gray-500 disabled:cursor-not-allowed transition-all flex items-center justify-center"
       >
         {uploading ? 'Uploading...' : 'Upload File'}
       </button>
